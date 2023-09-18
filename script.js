@@ -4,9 +4,6 @@ const matches = {
     secondTeam: ['U Cluj', 'U Craiova 1948', 'Sepsi Sf. Gheorghe', 'Voluntari', 'Rapid Bucuresti', 'FCSB', 'FC Botosani', 'Petrolul Ploiesti']
 };
 
-//Array of Generated Match
-let event = [];
-
 // Function to Generate Random Scores from 0 to 4
 const generateRandomScore = () => {
     return Math.floor(Math.floor(Math.random() * 5))
