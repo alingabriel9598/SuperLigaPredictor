@@ -1,6 +1,7 @@
 // Array of Current Matches
 const matches = {
-    firstTeam: ['UTA Arad', 'Dinamo Bucuresti', 'Universitatea Craiova', 'Hermannstadt', 'Otelul Galati', 'Farul Constanta', 'Poli Iasi', 'CFR Cluj'],
+    firstTeam: { name: ['UTA Arad', 'Dinamo Bucuresti', 'Universitatea Craiova', 'Hermannstadt', 'Otelul Galati', 'Farul Constanta', 'Poli Iasi', 'CFR Cluj'],
+                 dateEvent: [new Date("09/15/2023").getTime(), new Date("09/16/2023").getTime(), new Date("09/17/2023").getTime(), new Date("09/18/2023, 23:59").getTime()] },
     secondTeam: ['U Cluj', 'U Craiova 1948', 'Sepsi Sf. Gheorghe', 'Voluntari', 'Rapid Bucuresti', 'FCSB', 'FC Botosani', 'Petrolul Ploiesti']
 };
 
@@ -19,11 +20,34 @@ const currentDate = () => {
     let date = new Date();
     return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
 }
+// Function to Return Current Date for Comparasion
+const currentDateDay = () => {
+    let day = new Date().getTime();
+    return day;
+}
 
-//Function to generate real events
-const randomMatch = ()=> {
-    let randomIndex = Math.floor(Math.random() * matches.firstTeam.length);
-    let generateMatch = matches.firstTeam[randomIndex];
+//Function to check real events
+
+const checkMatch = ()=> {
+    let check = [];
+    for (let i = 0; i < matches.firstTeam.name.length; i++){
+        if(matches.firstTeam.name[i] === 'UTA Arad' && matches.firstTeam.dateEvent[0] < currentDateDay()){continue;};
+        if(matches.firstTeam.name[i] === 'Dinamo Bucuresti' && matches.firstTeam.dateEvent[0] < currentDateDay()){continue;};
+        if(matches.firstTeam.name[i] === 'Universitatea Craiova' && matches.firstTeam.dateEvent[1] < currentDateDay()){continue;}
+        if(matches.firstTeam.name[i] === 'Hermannstadt' && matches.firstTeam.dateEvent[2] < currentDateDay()){continue;}
+        if(matches.firstTeam.name[i] === 'Otelul Galati' && matches.firstTeam.dateEvent[2] < currentDateDay()){continue;}
+        if(matches.firstTeam.name[i] === 'Farul Constanta' && matches.firstTeam.dateEvent[2] < currentDateDay()){continue;}
+        if(matches.firstTeam.name[i] === 'Poli Iasi' && matches.firstTeam.dateEvent[3] < currentDateDay()){continue;}
+        if(matches.firstTeam.name[i] === 'CFR Cluj' && matches.firstTeam.dateEvent[3] < currentDateDay()){continue;}
+        check.push(matches.firstTeam.name[i]);
+    }
+    return check;
+}
+
+//Function to gather teams into real events
+const realEvents = ()=> {
+    let randomIndex = Math.floor(Math.random() * checkMatch().length);
+    let generateMatch = checkMatch()[randomIndex];
     switch(generateMatch) {
         case 'UTA Arad':
             return generateMatch + ' vs. ' + matches.secondTeam[0];
@@ -57,8 +81,9 @@ const randomMatch = ()=> {
 const superLigaPredictor = () => {
     console.log(titleProject());
     console.log(`Data: ${currentDate()}`);
-    console.log('Meci: ' + randomMatch());
+    console.log('Meci: ' + realEvents());
     console.log('Scor: ' + generateRandomScore() + ' - ' + generateRandomScore());
-}
+};
+
 
 superLigaPredictor();
